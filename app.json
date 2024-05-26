@@ -21,7 +21,13 @@
       "adaptiveIcon": {
         "foregroundImage": "./assets/adaptive-icon.png",
         "backgroundColor": "#ffffff"
-      }
+      },
+      "permissions": [
+        "android.permission.ACCESS_COARSE_LOCATION",
+        "android.permission.ACCESS_FINE_LOCATION",
+        "android.permission.RECORD_AUDIO"
+      ],
+      "package": "com.siebevdv.Frontend"
     },
     "web": {
       "favicon": "./assets/favicon.png"
@@ -44,7 +50,13 @@
         {
           "photosPermission": "Allow $(PRODUCT_NAME) to access your photos"
         }
-      ]
-    ]
+      ],
+      "expo-asset"
+    ],
+    "extra": {
+      "eas": {
+        "projectId": "e5f43275-cc96-4f98-bf08-b492dba66b39"
+      }
+    }
   }
 }

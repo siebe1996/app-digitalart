@@ -22,13 +22,13 @@ import {
     fetchRoles,
 } from "../../services/ApiService";
 import { returnResultImagePicker } from "../../services/HelperFunctions";
-import DateTimePicker from "@react-native-community/datetimepicker";
 import { AuthContext } from "../../contexts/AuthContext";
 import { useNavigation } from "@react-navigation/native";
 import { SafeAreaView } from "react-native-safe-area-context";
 import TitleBoxComp from "../../components/titleboxcomp/TitleBoxComp";
 import ContentViewComp from "../../components/contentviewcomp/ContentViewComp";
 import LabelDatePickerComp from "../../components/labeldatepickercomp/LabelDatePickerComp";
+import AddressButtonComp from "../../components/addressbuttoncomp/AddressButtonComp";
 
 const RegisterScreen = () => {
     const [loading, setLoading] = useState(false);
@@ -50,7 +50,6 @@ const RegisterScreen = () => {
     const [selectedPrediction, setSelectedPrediction] = useState([]);
     const [predictions, setPredictions] = useState([]);
     const [description, setDescription] = useState("");
-    const [showDatePicker, setShowDatePicker] = useState(false);
     const [selectedImage, setSelectedImage] = useState("");
     const radioButtonOptions = [
         {
@@ -149,9 +148,6 @@ const RegisterScreen = () => {
     };
 
     const handleDateChange = (event, selectedDate) => {
-        if (Platform.OS === "android") {
-            setShowDatePicker(false);
-        }
         if (selectedDate) {
             setDate(selectedDate);
         }
@@ -416,9 +412,9 @@ const RegisterScreen = () => {
                         {predictions.length > 0 && (
                             <View>
                                 {predictions.map((item, index) => (
-                                    <Button
+                                    <AddressButtonComp
                                         key={index}
-                                        title={item.description}
+                                        text={item.description}
                                         onPress={() => handleSearch(item)}
                                     />
                                 ))}
@@ -447,9 +443,7 @@ const RegisterScreen = () => {
                             <LabelDatePickerComp
                                 label={"Birthday: *"}
                                 value={date}
-                                onChange={(event, selectedDate) =>
-                                    handleDateChange(event, selectedDate)
-                                }
+                                onChange={handleDateChange}
                             />
 
                             {errors.date && (

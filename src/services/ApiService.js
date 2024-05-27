@@ -222,6 +222,7 @@ export const fetchPredictions = async (address) => {
         );
         return response.data;
     } catch (error) {
+        console.log("api key function", process.env.EXPO_PUBLIC_MAPS_API_KEY);
         throw error;
     }
 };
@@ -233,6 +234,7 @@ export const fetchAddressInfo = async (address) => {
         );
         return response.data;
     } catch (error) {
+        console.log("api key function", process.env.EXPO_PUBLIC_MAPS_API_KEY);
         throw error;
     }
 };

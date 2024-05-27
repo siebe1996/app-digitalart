@@ -153,10 +153,18 @@ const RegisterScreen = () => {
         }
     };
 
+    const validateEmail = (email) => {
+        const regex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+        return regex.test(email);
+    };
+
     const validateForm1 = () => {
         const newErrors = {};
         if (!email.trim()) {
             newErrors.email = "Email is required";
+        }
+        if (!validateEmail(email)) {
+            newErrors.email = "Give valid email";
         }
         if (!password1.trim() || password1 !== password2) {
             setPassword1("");
@@ -183,7 +191,13 @@ const RegisterScreen = () => {
             newErrors.lastName = "Last name is required";
         }
         if (!address.trim() && !selectedPrediction) {
+            newErrors.address = "Please choose an address from the options";
+        }
+        if (!address.trim() && !selectedPrediction) {
             newErrors.address = "Address is required";
+        }
+        if (!street.trim()) {
+            newErrors.address = "Street is required";
         }
         if (radioButtonValue === "Artist" && !description.trim()) {
             newErrors.description = "Description is required";
@@ -253,7 +267,11 @@ const RegisterScreen = () => {
             setLoading(false);
             console.log("register successful");
         } else {
-            console.error("Register failed");
+            const newErrors = {};
+            newErrors.wrong = "Something went wrong";
+            setErrors(newErrors);
+            setLoading(false);
+            console.error("Login failed");
         }
     };
 
@@ -325,7 +343,7 @@ const RegisterScreen = () => {
                 <View style={registerStyle.stepWrapper}>
                     <TitleBoxComp text="Your Account" />
                     <ContentViewComp>
-                        <View>
+                        <View style={registerStyle.radioButtonContainer}>
                             <RadioButtonGroupComp
                                 options={radioButtonOptions}
                                 selectedValue={radioButtonValue}
@@ -335,27 +353,36 @@ const RegisterScreen = () => {
                                 <InvalidTextComp text={errors.accountOptions} />
                             )}
                         </View>
-                        <ButtonComp
-                            text={
-                                currentStep < totalSteps ? "Next" : "Register"
-                            }
-                            disabled={loading}
-                            onPress={handleNextStep}
-                        />
-                        <View style={registerStyle.loginContainer}>
-                            <Text>
-                                Already have an account? Login{" "}
-                                <Text
-                                    style={registerStyle.login}
-                                    onPress={handleLoginPress}
-                                >
-                                    here
+                    </ContentViewComp>
+                    <ContentViewComp>
+                        <View>
+                            <ButtonComp
+                                text={
+                                    currentStep < totalSteps
+                                        ? "Next"
+                                        : "Register"
+                                }
+                                disabled={loading}
+                                onPress={handleNextStep}
+                            />
+                            <View style={registerStyle.loginContainer}>
+                                <Text>
+                                    Already have an account? Login{" "}
+                                    <Text
+                                        style={registerStyle.login}
+                                        onPress={handleLoginPress}
+                                    >
+                                        here
+                                    </Text>
                                 </Text>
-                            </Text>
+                            </View>
+                            {loading && (
+                                <ActivityIndicator
+                                    size="large"
+                                    color="#0000ff"
+                                />
+                            )}
                         </View>
-                        {loading && (
-                            <ActivityIndicator size="large" color="#0000ff" />
-                        )}
                     </ContentViewComp>
                 </View>
             )}
@@ -470,6 +497,9 @@ const RegisterScreen = () => {
                         </View>
                         {loading && (
                             <ActivityIndicator size="large" color="#0000ff" />
+                        )}
+                        {errors.wrong && (
+                            <InvalidTextComp text={errors.wrong} />
                         )}
                     </ContentViewComp>
                 </View>

@@ -12,6 +12,12 @@ export const registerStyle = StyleSheet.create({
         flex: 1,
         justifyContent: "space-between",
     },
+    radioButtonContainer: {
+        width: "100%",
+        justifyContent: "center",
+        alignItems: "center",
+        marginBottom: 20,
+    },
     login: {
         textDecorationLine: "underline",
     },

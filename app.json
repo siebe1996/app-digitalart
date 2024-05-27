@@ -1,6 +1,6 @@
 {
   "expo": {
-    "name": "Frontend",
+    "name": "ArtSy(nc)",
     "slug": "Frontend",
     "version": "1.0.0",
     "orientation": "portrait",
@@ -27,7 +27,12 @@
         "android.permission.ACCESS_FINE_LOCATION",
         "android.permission.RECORD_AUDIO"
       ],
-      "package": "com.siebevdv.Frontend"
+      "package": "com.siebevdv.Frontend",
+      "config": {
+        "googleMaps": {
+          "apiKey": ""
+        }
+      },
     },
     "web": {
       "favicon": "./assets/favicon.png"
@@ -54,6 +59,7 @@
       "expo-asset"
     ],
     "extra": {
+      "EXPO_PUBLIC_MAPS_API_KEY": "",
       "eas": {
         "projectId": "e5f43275-cc96-4f98-bf08-b492dba66b39"
       }

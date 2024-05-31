@@ -158,6 +158,11 @@ const RegisterScreen = () => {
         return regex.test(email);
     };
 
+    const validatePassword = (password) => {
+        const regex = /^(?=.*[A-Z])(?=.*\d)(?=.*[^A-Za-z\d]).{6,}$/;
+        return regex.test(password);
+    };
+
     const validateForm1 = () => {
         const newErrors = {};
         if (!email.trim()) {
@@ -169,7 +174,13 @@ const RegisterScreen = () => {
         if (!password1.trim() || password1 !== password2) {
             setPassword1("");
             setPassword2("");
-            newErrors.password = "Password is wrong";
+            newErrors.password = "Password is not same";
+        }
+        if (!validatePassword(password1)) {
+            setPassword1("");
+            setPassword2("");
+            newErrors.password =
+                "Password needs capital, number, special sign and longer then 6 chars";
         }
         return newErrors;
     };
@@ -271,7 +282,7 @@ const RegisterScreen = () => {
             newErrors.wrong = "Something went wrong";
             setErrors(newErrors);
             setLoading(false);
-            console.error("Login failed");
+            console.error("Register failed");
         }
     };
 
